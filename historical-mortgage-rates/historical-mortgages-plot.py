@@ -12,13 +12,12 @@ from plotnine import (
     theme_minimal,
     theme,
     element_text,
+    element_rect,
     labs,
 )
 
 project_dir = os.getcwd()
-font_path = os.path.join(
-    project_dir, "plotnine-visualizations/Raleway-VariableFont_wght.ttf"
-)
+font_path = os.path.join(project_dir, "Raleway-VariableFont_wght.ttf")
 prop = fm.FontProperties(fname=font_path)
 
 rates_clean = pd.read_csv("data/rates_clean.csv")
@@ -39,7 +38,7 @@ p = (
     + scale_color_manual(values=["#DB583A", "#305776"], labels=["15-year", "30-year"])
     + theme_minimal()
     + labs(
-        title="Interest Rates 15- and 30- Year",
+        title="15- and 30-Year Fixed Rate Mortgage Average in the United States",
         caption="Source: FRED, Federal Reserve Bank of St. Louis",
         x="",
         y="",
@@ -48,9 +47,10 @@ p = (
     + theme(
         title=element_text(hjust=0, fontproperties=prop),
         text=element_text(fontproperties=prop),
+        plot_background=element_rect(fill="white")
     )
 )
 
 p.show()
 
-p.save("historical_mortgages_plot.png", dpi=300, height=4.5, width=8)
+p.save("./historical-mortgage-rates/historical_mortgages_plot.png", dpi=300, height=4.5, width=8)
